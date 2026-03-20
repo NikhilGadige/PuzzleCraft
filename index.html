@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuzzleCraft</title>
+    <link rel="icon" type="image/svg+xml" href="assets/puzzle-piece.svg">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <canvas id="backgroundDots"></canvas>
+
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <div class="home-container">
+            <h1>PuzzleCraft</h1>
+            <p class="lead">Create a jigsaw puzzle from any photo - upload an image, choose difficulty, then drag pieces to solve it. Pieces snap into place when they are close enough.</p>
+
+            <div class="home-grid">
+                <div class="left-card">
+                    <h2>Upload Your Photo</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        <p>Click to select a photo or drag and drop an image here</p>
+                    </div>
+                    <canvas id="previewCanvas" style="display: none; margin: 12px 0; max-width: 100%;"></canvas>
+                </div>
+
+                <div class="right-card">
+                    <h2>Choose Difficulty</h2>
+                    <p class="muted">Use the slider to pick how many pieces your puzzle will have.</p>
+                    <div class="slider-row">
+                        <input type="range" id="pieceSlider" min="0" max="8" step="1" value="0">
+                        <div class="slider-values">
+                            <span id="sliderCount">4</span> pieces - <span id="sliderGrid">2x2</span>
+                        </div>
+                    </div>
+
+                    <div id="pieceSelection" style="margin-top:12px; display:block;">
+                        <button class="btn btn-primary" id="startBtn">Create Puzzle</button>
+                    </div>
+
+                    <p class="how-to">How to play: Drag pieces from the right column onto the board. Pieces placed near their correct spot will snap and lock. Move incorrect pieces freely.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Puzzle Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="game-container">
+            <h2>Solve the Puzzle</h2>
+            <div class="game-content">
+                <div class="puzzle-area">
+                    <div class="puzzle-board">
+                        <div class="board-wrapper" style="position:relative;">
+                            <canvas id="gameCanvas" width="500" height="500"></canvas>
+                            <div id="boardOverlay" class="board-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pieces-area">
+                    <h3>Pieces</h3>
+                    <div id="piecesContainer" class="pieces-container"></div>
+                </div>
+            </div>
+            <div class="game-stats">
+                <p>Pieces Placed: <span id="placedCount">0</span>/<span id="totalCount">0</span></p>
+                <p id="instructions">Drag pieces to the board to solve the puzzle</p>
+            </div>
+            <button class="btn btn-secondary" onclick="goToMenu()">Quit Game</button>
+        </div>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div id="celebrationScreen" class="screen">
+        <div class="celebration-container">
+            <div class="celebration-content">
+                <h1>Congratulations!</h1>
+                <p>You have completed the puzzle!</p>
+                <canvas id="completedPuzzleCanvas" style="max-width: 100%;"></canvas>
+                <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="goToMenu()">Play Again</button>
+                </div>
+            </div>
+            <div class="confetti" id="confetti"></div>
+        </div>
+    </div>
+
+    <script src="js/puzzle.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
